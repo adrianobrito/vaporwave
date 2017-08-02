@@ -1,6 +1,6 @@
 (function (dynamicIdGenerator) {
 
-	var RANDOM_RANGE  = 100000;
+	var RANDOM_RANGE                = 100000;
     dynamicIdGenerator.generatedIds = [];
     dynamicIdGenerator.generateId   = generateId;
 
@@ -19,6 +19,5 @@
             return generatedId === id;
         }
     }
-
 
 })(module.exports);
