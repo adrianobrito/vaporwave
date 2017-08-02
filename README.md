@@ -1,9 +1,9 @@
-[![Vaporwave](https://i.ytimg.com/vi/nKfO0JBtemc/maxresdefault.jpg)]
+![Vaporwave](https://i.ytimg.com/vi/nKfO0JBtemc/maxresdefault.jpg)
 
-# DATA 
-# IS
-# FOR
-# NOW
-# AND
-# FOR
-# NEVER
+### DATA 
+### IS
+### FOR
+### NOW
+### AND
+### FOR
+### NEVER
