@@ -14,16 +14,16 @@
         var url         = request.url;
         var urlRegex    = /([\/A-Za-z+]+)(\/[\d+]*)/;
         var groups      = urlRegex.exec(url);
-        var lastUrlPath = url.replace(urlRegex, '$2').replace('/','/');
+        var lastUrlPath = url.replace(urlRegex, '$2').replace('/','');
 
         return isDigit(lastUrlPath) ?
-            {entity: url.replace(urlRegex, '$1'), id: lastUrlPath} :
+            {entity: url.replace(urlRegex, '$1'), id: parseInt(lastUrlPath)} :
             {entity: url};
     }
 
     function extractBody(request) {
         var body = request.body;
-        return JSON.parse(body);
+        return body && JSON.parse(body) || undefined;
     }
 
     function extractMethod(request) {
