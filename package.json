@@ -1,0 +1,27 @@
+{
+  "name": "@adrianobrito/vaporwave",
+  "version": "0.0.1",
+  "description": "JSON Server with self-implemented REST API's",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianobrito/vaporwave.git"
+  },
+  "keywords": [
+    "json",
+    "server",
+    "rest",
+    "javascript",
+    "serverless",
+    "vaporwave"
+  ],
+  "author": "Adriano Brito <adrianosdebrito@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrianobrito/vaporwave/issues"
+  },
+  "homepage": "https://github.com/adrianobrito/vaporwave#readme"
+}
