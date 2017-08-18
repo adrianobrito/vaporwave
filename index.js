@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Load the http module to create an http server.
 var http           = require('http');
 var requestParser  = require('./request-parser.js');
