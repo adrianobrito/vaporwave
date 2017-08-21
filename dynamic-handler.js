@@ -1,3 +1,0 @@
-(function (dynamicHandler) {
-
-})(module.exports);
