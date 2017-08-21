@@ -1,10 +1,10 @@
 {
   "name": "@adrianobrito/vaporwave",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JSON Server with self-implemented REST API's",
   "main": "index.js",
-  "bin" : {
-    "vaporwave": "./index.js"  
+  "bin": {
+    "vaporwave": "./index.js"
   },
   "repository": {
     "type": "git",
