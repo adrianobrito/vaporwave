@@ -3,6 +3,7 @@
     urlResolver.extractRequestData = extractRequestData;
 
     function extractRequestData(url) {
+        console.log("[INFO] Extracting URL Data");
         var urlRegex     = /([\/A-Za-z+]+)(\/[\d+]*)/;
         var groups       = urlRegex.exec(url);
         var lastUrlPath  = url.replace(urlRegex, '$2').replace('/','/');

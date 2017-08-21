@@ -11,6 +11,7 @@
     }
 
     function extractEndpoint(request) {
+        console.log("[INFO] Parsing incoming request");
         var url         = request.url;
         var urlRegex    = /([\/A-Za-z+]+)(\/[\d+]*)/;
         var groups      = urlRegex.exec(url);

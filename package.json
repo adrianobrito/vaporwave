@@ -18,6 +18,9 @@
     "serverless",
     "vaporwave"
   ],
+  "dependencies": {
+    "figlet": "^1.2.0"
+  },
   "author": "Adriano Brito <adrianosdebrito@gmail.com>",
   "license": "ISC",
   "bugs": {

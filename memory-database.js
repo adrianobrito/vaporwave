@@ -10,6 +10,7 @@ var dynamicIdGenerator = require('./dynamic-id-generator.js');
 	memoryDatabase.delete = _delete;
 	
 	function _get(requestObject){
+		console.log("[GET] Getting a resource in memory database");
 		var endpoint = requestObject.endpoint;
 		var targetCollection = memoryDatabaseObject[endpoint.entity] || [];
 		if(!endpoint.id) {
@@ -21,6 +22,7 @@ var dynamicIdGenerator = require('./dynamic-id-generator.js');
 	}
 
 	function _post(requestObject){
+		console.log("[POST] Inserting a resource in memory database");
 		var endpoint = requestObject.endpoint;
 		var body     = requestObject.body;
 		if(!memoryDatabaseObject[endpoint.entity]) {
@@ -33,6 +35,7 @@ var dynamicIdGenerator = require('./dynamic-id-generator.js');
 	}
 
 	function _put(requestObject){
+		console.log("[PUT] Updating a resource in memory database");
 		var body             = requestObject.body;
 		var endpoint         = requestObject.endpoint;
 		var targetCollection = memoryDatabaseObject[endpoint.entity] || [];
@@ -44,6 +47,7 @@ var dynamicIdGenerator = require('./dynamic-id-generator.js');
 	}
 
 	function _delete(requestObject){
+		console.log("[DELETE] Removing a resource in memory database");
 		var endpoint         = requestObject.endpoint;
 		var targetCollection = memoryDatabaseObject[endpoint.entity] || [];
 		var targetIndex      = targetCollection.findIndex(byId(endpoint.id));
