@@ -3,7 +3,7 @@
 Vaporwave is a HTTP server capable of support self-implemented REST API's. You can use HTTP methods to send request to this server as it was a JSON database or a Firebase endpoint. It's provide the minimal necessary infrastructure to allow you adopt an UI-First development flow. 
 
 # Installation
-The package comes as CLI. So you need to install it globally via npm.
+The package comes as CLI. So you need to install it globally via npm. The current version is not definitive release. You can check the roadmap to first candidate release.
 
 ```sh
 $ npm install -g @adrianobrito/vaporwave 
@@ -32,7 +32,7 @@ $ curl -X GET "http://localhost:8000/api/users"
 []
 ```
 
-When you startup the server throught `vaporwave` command, you can access it using port 8000. When you perform a simple **HTTP GET** on **api/users** the server gets the current state of related collection in this endpoint. The previous example returned a empty array because the related collection with **api/users** is empty. In order to change the state of this endpoint, let's do **HTTP POST** request throught `curl`.
+When you startup the server throught `vaporwave` command, you can access it using port 8000. When you perform a simple **HTTP GET** on **api/users** the server gets the current state of related collection in this endpoint. The previous example returned a empty array, because the related collection with **api/users** is empty. In order to change the state of this endpoint, let's do **HTTP POST** request throught `curl`.
 
 ```sh
 $ curl -X POST 
@@ -70,3 +70,19 @@ $ curl -X GET "http://localhost:8000/api/users/2323"
 {"name":"Adriano Brito Bispo","username":"adrianobritobispo","password":"qwe123","id":2323}
 ```
 
+It's easy to see that the object related with **api/users/2323** endpoint was updated with the object sent in **HTTP PUT** request body.
+
+If you need to remove a specific object from server, you can perform a **HTTP DELETE** with an ID in request path, like is shown below:
+
+```sh
+$ curl -X DELETE "http://localhost:8000/api/users/2323"
+{"name":"Adriano Brito Bispo","username":"adrianobritobispo","password":"qwe123","id":2323}
+
+$ curl -X GET "http://localhost:8000/api/users/2323"
+
+```
+After execute an **HTTP DELETE** request in **api/users/2322** endpoint, the server will remove that specific object from your internal database. It's shown on subsequent **HTTP GET** request.
+
+# Contribute
+
+If you want to help on development of vaporwave first relase you can check our issues [here](https://github.com/adrianobrito/vaporwave/milestone/1). Feel free to create a pull request or suggest some new changes to be added to the first release proposal. 
