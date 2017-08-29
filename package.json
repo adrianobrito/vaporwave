@@ -1,6 +1,6 @@
 {
   "name": "@adrianobrito/vaporwave",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "JSON Server with self-implemented REST API's",
   "main": "index.js",
   "bin": {
