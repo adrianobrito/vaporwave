@@ -2,9 +2,15 @@
   "name": "@adrianobrito/vaporwave",
   "version": "0.0.4",
   "description": "JSON Server with self-implemented REST API's",
-  "main": "index.js",
+  "main": "dist/index.js",
   "bin": {
-    "vaporwave": "./index.js"
+    "vaporwave": "./dist/index.js"
+  },
+  "scripts": {
+    "watch": "babel -w src/ -d dist/",
+    "build": "babel src/ -d dist/",
+    "serve": "babel -w src/ -d dist/ | nodemon --watch dist",
+    "test": "mocha --recursive"
   },
   "repository": {
     "type": "git",
@@ -26,5 +32,13 @@
   "bugs": {
     "url": "https://github.com/adrianobrito/vaporwave/issues"
   },
-  "homepage": "https://github.com/adrianobrito/vaporwave#readme"
+  "homepage": "https://github.com/adrianobrito/vaporwave#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0"
+  }
 }
