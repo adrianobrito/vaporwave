@@ -85,4 +85,4 @@ After execute an **HTTP DELETE** request in **api/users/2322** endpoint, the ser
 
 # Contribute
 
-If you want to help on development of vaporwave first relase you can check our issues [here](https://github.com/adrianobrito/vaporwave/milestone/1). Feel free to create a pull request or suggest some new changes to be added to the first release proposal. 
+If you want to help on development of vaporwave first release, you can check our issues [here](https://github.com/adrianobrito/vaporwave/milestone/1). Feel free to create a pull request or suggest some new changes to be added to the first release proposal. 
