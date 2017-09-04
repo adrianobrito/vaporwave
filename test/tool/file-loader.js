@@ -1,10 +1,13 @@
 import fileSystem from 'fs';
 
-export const FileLoader = {
+const FileLoader = {
 
 	load(path) {
 		return new Promise((resolve, reject) => {
-			fileSystem.readFile(`${__dirname}/${path}`, (error, data) => {
+			const currentPath = `${__dirname}/${path}`;
+			console.log(`[INFO] Reading file from ${currentPath}`);
+
+			fileSystem.readFile(`${currentPath}`, (error, data) => {
 				if(error) {
 					reject(error);
 				} else {
@@ -15,3 +18,5 @@ export const FileLoader = {
 	}
 
 };
+
+export default FileLoader;

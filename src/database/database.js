@@ -1,4 +1,4 @@
-class Database {
+export default class Database {
 
 	get() {
 		throw new Error('You have to implement the method get()');
