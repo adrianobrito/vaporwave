@@ -10,7 +10,7 @@
     "watch": "babel -w src/ -d dist/",
     "build": "babel src/ -d dist/",
     "serve": "babel -w src/ -d dist/ | nodemon --watch dist",
-    "test": "mocha --recursive"
+    "test": "mocha --recursive --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,17 @@
+import fileSystem from 'fs';
+
 export const FileLoader = {
 
 	load(path) {
-		// TODO it's time to get back to work
+		return new Promise((resolve, reject) => {
+			fileSystem.readFile(`${__dirname}/${path}`, (error, data) => {
+				if(error) {
+					reject(error);
+				} else {
+					resolve(data);
+				}
+			});
+		});
 	}
 
 };

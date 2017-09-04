@@ -1,6 +1,13 @@
-var assert = require('assert');
+import assert from 'assert';
+import '../../src/database/memory-database';
+// Import memory database from code
+
 describe('MemoryDatabase', () => {
 	let memoryDatabase;
+
+	before((done) => {
+
+	});
 
 	describe('#get()', () => {
 		it('should return all values from a specific endpoint', () => {});

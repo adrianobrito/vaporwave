@@ -1,8 +1,9 @@
 import Database from './database'
 
-class MemoryDatabase extends Database {
+export default class MemoryDatabase extends Database {
 
 	constructor(initialData = {}) {
+		super();
 		this.memoryDatabaseObject = initialData; 
 	}
 
