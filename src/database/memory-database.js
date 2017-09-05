@@ -1,4 +1,5 @@
 import Database from './database.js';
+import DynamicIdGenerator from './dynamic-id-generator.js';
 
 export default class MemoryDatabase extends Database {
 
@@ -19,8 +20,17 @@ export default class MemoryDatabase extends Database {
 		return targetObject.length && targetObject[0] || undefined;
 	}
 
-	post() {
-		throw new Error('You have to implement the method post()');
+	post(requestObject) {
+		console.log("[POST] Inserting a resource in memory database");
+		var endpoint = requestObject.endpoint;
+		var body     = requestObject.body;
+		if(!this.memoryDatabaseObject[endpoint.entity]) {
+			this.memoryDatabaseObject[endpoint.entity] = [];
+		}
+
+		body.id = DynamicIdGenerator.generateId();
+		this.memoryDatabaseObject[endpoint.entity].push(body);
+		return body;
 	}
 
 	put() {
