@@ -4,7 +4,8 @@ import FileLoader from '../tool/file-loader';
 
 describe('MemoryDatabase', () => {
 	const collectionName        = "collection";
-	const demoCollection        = [{ "name": "collection", "id" : 1 }];
+	const demoObject            = { "name": "collection", "id" : 1 };
+	const demoCollection        = [demoObject];
 	const initialData 			= {};
 	initialData[collectionName] = demoCollection;
 	const memoryDatabase        = new MemoryDatabase(initialData);
@@ -75,15 +76,73 @@ describe('MemoryDatabase', () => {
 				expect(currentCollection).to.deep.include(object);
 				expect(currentCollection).to.have.lengthOf(previousCollectionSize + 1);
 			});
+
+			it('should able to get the added object sending the id in endpoint of request', () => {
+				const currentEndpoint = collectionRequest.endpoint;
+				currentEndpoint.id = currentObject.id;
+
+				const responseObject = memoryDatabase.get(collectionRequest);
+				expect(responseObject).to.exist;
+				expect(responseObject.id).to.be.equals(currentEndpoint.id);
+			});
 		});
 	});
 
 	describe('#put()', () => {
-		it('should return an updated version of an specific object from an endpoint', () => {});
+		demoObject.name = "new updated name";
+		const request = {
+			"endpoint": { 
+				"entity": collectionName,
+				"id"    : demoObject.id
+			},
+			"body"  : demoObject
+		};
+
+		describe("when an JSON is sent in request body with id specified in endpoint",  () => {
+			const currentObject = memoryDatabase.put(request);
+
+			it('should return an updated version of an specific object from an endpoint', () => {
+				expect(currentObject).to.exist;
+				expect(currentObject).to.be.equals(request.body);
+			});
+			
+			it('should update the specific object in database', () => {
+				const responseObject = memoryDatabase.get(request);
+				expect(responseObject).to.be.equals(currentObject);
+			});			
+		});
 	});
 
 	describe('#delete()', () => {
-		it('should return an the removed object', () => {});
+		let demoDeletedObject = {
+			"name" : "deleted object"
+		};
+		const postRequest = {
+			"endpoint": { 
+				"entity": collectionName
+			},
+			"body" : demoDeletedObject
+		};
+		demoDeletedObject = memoryDatabase.post(postRequest);
+
+		describe("when an id is specified in endpoint", () => {
+			const deleteRequest = {
+				"endpoint": { 
+					"entity": collectionName,
+					"id"    : demoDeletedObject.id
+				}
+			};
+			const currentObject = memoryDatabase.delete(deleteRequest);
+			
+			it('should return the removed object', () => {
+				expect(currentObject).to.exist;
+			});
+
+			it('should remove the object from the endpoint', () => {
+				const responseObject = memoryDatabase.get(deleteRequest);
+				expect(responseObject).to.be.undefined;
+			});			
+		});
 	});
 
 });
