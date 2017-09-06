@@ -1,11 +1,5 @@
-import Http from 'http';
+import Server from 'Server';
 
-const vaporwaveServer = Http.createServer( (request, response) => {
-	console.log("Server is up and running...");
-	response.writeHead(200, {"Content-Type": "application/json"});
-	response.end(JSON.stringify(responseBody));
-});
-
-vaporwaveServer.listen(8888);
-
-
+(() => {
+	Server.start();	
+})();
