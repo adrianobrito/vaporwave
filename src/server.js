@@ -1,9 +1,11 @@
 import http           from 'http';
 import requestParser  from './request/request-parser.js';
-import memoryDatabase from './database/memory-database.js';
+import MemoryDatabase from './database/memory-database.js';
 import asciiArt       from './ascii/ascii-art.js';
 
 const Server = (() => {
+
+	const memoryDatabase = new MemoryDatabase();
 
 	return {
 		start : start
