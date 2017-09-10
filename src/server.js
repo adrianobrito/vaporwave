@@ -5,10 +5,15 @@ import asciiArt       from './ascii/ascii-art.js';
 
 const Server = (() => {
 
-	const memoryDatabase = new MemoryDatabase();
+	let memoryDatabase = new MemoryDatabase();
 
 	return {
-		start : start
+		start       : start,
+		setDatabase : setDatabase
+	}
+
+	function setDatabase(database) {
+		memoryDatabase = database;
 	}
 
 	function start() {
