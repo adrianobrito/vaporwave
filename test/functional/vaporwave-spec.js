@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import Server from '../../src/server';
 import MemoryDatabase from '../../src/database/memory-database.js';
+import DynamicIdGenerator from '../../src/database/dynamic-id-generator.js';
 
 describe('Vaporwave Server', () => {
 
@@ -10,7 +11,6 @@ describe('Vaporwave Server', () => {
 	const serverUrl      = `http://localhost:${port}`;
 	const collectionName = 'collection';
 	const path           = `/${collectionName}`;
-	const memoryDatabase = new MemoryDatabase();
 
 	before(() => {
 		chai.use(chaiHttp);
@@ -31,9 +31,9 @@ describe('Vaporwave Server', () => {
 		});
 
 		describe("when the URL has a specific id in its path", () => {
-			let mockedDatabase  = sinon.mock(memoryDatabase);
-			const mockedId      = 15;
-			const mockedRequest = {
+			const memoryDatabase = new MemoryDatabase();
+			const mockedId       = DynamicIdGenerator.generateId();
+			const mockedRequest  = {
 				method   : 'GET',
 				endpoint : {
 					entity : "collection",
@@ -45,26 +45,28 @@ describe('Vaporwave Server', () => {
 			const pathWithId     = `${path}/${mockedId}`;
 
 			before(() => {
-				mockedDatabase.expects('get')
+				const stubbedGet = sinon.stub();
+				stubbedGet
 					.withArgs(mockedRequest)
 					.returns(expectedReturn);
-				Server.setDatabase(mockedDatabase);
+
+				memoryDatabase.get = stubbedGet;
 			});
 
 			after(() => {
-				Server.setDatabase(memoryDatabase);
+				Server.setDatabase(new MemoryDatabase());
 			})
 
 			it("should return a JSON with same id specified in path", (done) => {
 				chai.request(serverUrl)
-					.get(pathWithId)	
+					.get(pathWithId)
 					.end((err, res) => {
 						expect(res).to.have.status(200);
 						expect(res.body).to.exist;
 						expect(res.body.id).to.be.equals(mockedRequest.id);
 						done();
 					});
-			});			
+			});
 		});
 	});
 
@@ -110,7 +112,7 @@ describe('Vaporwave Server', () => {
 								expect(response.body.id).to.be.equals(responseBody.id);
 								done();
 							});
-					});				
+					});
 			});
 
 			it("should add a new object in server", () => {
