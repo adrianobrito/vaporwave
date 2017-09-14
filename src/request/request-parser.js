@@ -1,14 +1,13 @@
-(function (requestParser) {
-
-    requestParser.extractRequestData = extractRequestData;
-
-    function extractRequestData(request) {
-        return {
-            endpoint : extractEndpoint(request),
-            method   : extractMethod(request),
-            body     : extractBody(request)
-        };
-    }
+const RequestParser = (() => {
+    return {
+        extractRequestData(request) {
+            return {
+                endpoint : extractEndpoint(request),
+                method   : extractMethod(request),
+                body     : extractBody(request)
+            };
+        }
+    };
 
     function extractEndpoint(request) {
         console.log("[INFO] Parsing incoming request");
@@ -34,5 +33,6 @@
     function isDigit(str) {
         return /^\d+$/.test(str);s
     }
+})();
 
-})(module.exports);
+export default RequestParser;
