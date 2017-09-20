@@ -3,6 +3,5 @@ import minimist from 'minimist';
 
 (() => {
 	const args = minimist(process.argv.slice(2));
-	const port =
 	Server.start(args.port && parseInt(args.port) || undefined);
 })();
