@@ -7,11 +7,11 @@
     "vaporwave": "./dist/index.js"
   },
   "scripts": {
-    "watch": "babel -w src/ -d dist/",
     "build": "babel src/ -d dist/",
     "serve": "babel -w src/ -d dist/ | nodemon --watch dist",
     "test": "mocha --recursive --compilers js:babel-core/register test/",
-    "coverage" : "nyc mocha --recursive --compilers js:babel-core/register test/"
+    "coverage" : "nyc mocha --recursive --compilers js:babel-core/register test/",
+    "execute" : "babel src/ -d dist/ | node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
     "vaporwave"
   ],
   "dependencies": {
-    "figlet": "^1.2.0"
+    "figlet": "^1.2.0",
+    "minimist" : "^1.2.0"
   },
   "author": "Adriano Brito <adrianosdebrito@gmail.com>",
   "license": "ISC",
