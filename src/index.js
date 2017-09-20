@@ -1,5 +1,7 @@
-import Server from 'Server';
+import Server from './server.js';
+import minimist from 'minimist';
 
 (() => {
-	Server.start();	
+	const args = minimist(process.argv.slice(2));
+	Server.start(args.port && parseInt(args.port) || undefined);
 })();

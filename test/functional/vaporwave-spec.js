@@ -32,6 +32,22 @@ describe('Vaporwave Server', () => {
 		Server.start();
 	});
 
+	describe("when it starts with a custom port", () => {
+		const customPort           = 9999;
+		const customServerUrl      = `http://localhost:${customPort}/`;
+
+		it("should be acessible throught the specified custom port", () => {
+			Server.start(customPort);
+			chai.request(customServerUrl)
+				.get(collectionName)
+				.end((err, res) => {
+					expect(res).to.have.status(200);
+					expect(res.body).to.be.a('array');
+					done();
+				});
+		});
+	});
+
 	describe("HTTP GET", () => {
 		describe("when the URL doesn't have a specific id in its path", () => {
 			it("should return a Array", (done) => {
