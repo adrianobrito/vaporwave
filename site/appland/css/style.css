@@ -217,8 +217,8 @@ Navigation
 
 .navbar {
     margin-bottom: 0;
-    border-bottom: 1px solid rgba(255,255,255,.3);	
-	
+    border-bottom: 1px solid rgba(255,255,255,.3);
+
 }
 
 
@@ -268,7 +268,7 @@ Navigation
 
 .navbar.navbar-custom.top-nav-collapse {
 	background: #fff;
-	
+
 }
 
 .navbar-custom.top-nav-collapse ul.nav li a {
@@ -279,7 +279,7 @@ Navigation
 }
 
 .navbar-custom ul.nav ul.dropdown-menu {
-	border-radius: 0;	
+	border-radius: 0;
 	margin-top: 16px;
 }
 
@@ -341,27 +341,27 @@ Navigation
 
 
 /* loader */
-#page-loader { 
-	position: fixed; 
-	top: 0; 
-	left: 0; 
-	height: 100%; 
-	width: 100%; 
-	background: white; 
-	z-index: 9999; 
+#page-loader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: white;
+	z-index: 9999;
 }
 #page-loader img {
-	margin: 100px auto; 
+	margin: 100px auto;
 	display: block;
 }
 
-.loader { 
-	text-align: center; 
-	margin: auto; 
-	position: absolute; 
-	top: 0; 
-	bottom: 0; 
-	left: 0; 
+.loader {
+	text-align: center;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
 	right: 0;
 	height: 40px;
 }
@@ -860,19 +860,19 @@ ul.social li {
 
 .icon-primary {
 	color: #4765a0;
-}	
+}
 .icon-success {
 	color: #7db53b;
-}	
+}
 .icon-info {
 	color: #51b6bf;
-}	
+}
 .icon-warning {
 	color: #e6e039;
-}	
+}
 .icon-danger {
 	color: #e24e47;
-}	
+}
 
 
 /* scroll to top */
@@ -883,9 +883,9 @@ ul.social li {
     bottom:0px;
     right:20px;
 	background: #222;
--webkit-border-radius: 2px 2px 0 0;	
-	-moz-border-radius: 2px 2px 0 0;	
-	border-radius:  2px 2px 0 0;	
+-webkit-border-radius: 2px 2px 0 0;
+	-moz-border-radius: 2px 2px 0 0;
+	border-radius:  2px 2px 0 0;
 }
 
 a.scrollup {
@@ -938,7 +938,7 @@ a.scrollup i:hover {
     -moz-animation-timing-function: linear;
 }
 
-@-webkit-keyframes pulse {    
+@-webkit-keyframes pulse {
     0 {
         -webkit-transform: scale(1);
         transform: scale(1);
@@ -955,7 +955,7 @@ a.scrollup i:hover {
     }
 }
 
-@-moz-keyframes pulse {    
+@-moz-keyframes pulse {
     0 {
         -moz-transform: scale(1);
         transform: scale(1);
@@ -981,11 +981,10 @@ a.scrollup i:hover {
 	position: relative;
 	display: inline-block;
 	outline: none;
-	color: #fff;
-	text-decoration: none;
+ 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	font-weight: 400;	
+	font-weight: 400;
 	text-shadow: 0 0 1px rgba(255,255,255,0.3);
 	font-size: 14px;
 
@@ -1074,15 +1073,15 @@ a.btn:focus{
 		text-align: center;
 		margin-top: 30px;
 	}
-	
+
 	.navbar.navbar-custom.navbar-fixed-top {
 		background-color: #fff;
 	}
-	
+
 	.badge.custom-badge {
 		margin: 0 0 0 0;
 	}
-	
+
 	.navbar-header button {
 		border-color: #ccc;
 		background-color: #eee;
@@ -1091,7 +1090,7 @@ a.btn:focus{
 	.navbar-header i{
 		color: #666;
 	}
-	
+
 	.boxes3 {
 	width: 100%;
 	}
@@ -1105,7 +1104,7 @@ a.btn:focus{
 		border-bottom: 1px solid #eee;
 		padding-left: 20px;
 	}
-	
+
 	.service-box {
 		margin: 20px 0 30px;
 	}
@@ -1115,12 +1114,12 @@ a.btn:focus{
 		float: none;
 		text-align: center;
 	}
-	
+
 	.cta-btn {
 		float: none;
 		text-align: center;
 	}
-	
+
 	.sub-footer p {
 		float: none;
 		text-align: center;
@@ -1129,7 +1128,7 @@ a.btn:focus{
 		float: none;
 		text-align: center;
 	}
-	
+
 	ul.social {
 		text-align: center;
 	}
@@ -1142,16 +1141,16 @@ a.btn:focus{
 	.navbar-custom .nav.navbar-nav {
     background-color: rgba(255,255,255,.4);
 	}
-	
+
 	.navbar.navbar-custom.navbar-fixed-top {
 		margin-bottom: 30px;
 	}
-	
+
 	.intro-content .slogan {
 		text-align: center;
 		margin-top: 30px;
 	}
-	
+
 
 
 	.box {
@@ -1161,7 +1160,7 @@ a.btn:focus{
 	.box i {
 		margin-bottom: 30px;
 	}
-		
+
 }
 
 @media (max-width:320px) {
@@ -1170,7 +1169,7 @@ a.btn:focus{
 		display: block;
 		margin: 0 auto;
 	}
-	
+
 	.intro-content {
 		padding:60px 0 0;
 	}
