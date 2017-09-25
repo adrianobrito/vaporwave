@@ -1,33 +1,14 @@
+import fileSystem from 'fs';
+
 const JsonFileManager = {
-
     load(fileName) {
-		return new Promise((resolve, reject) => {
-			const currentPath = `${__dirname}/${fileName}`;
-			console.log(`[INFO] Reading file from ${currentPath}`);
-
-			fileSystem.readFile(`${currentPath}`, (error, data) => {
-				if(error) {
-					reject(error);
-				} else {
-					resolve(data);
-				}
-			});
-		});
-	}
-
+        console.log(`[INFO] Loading data from ${__dirname}/${fileName} file`);
+        return JSON.parse(fileSystem.readFileSync(`${__dirname}/${fileName}`));
+	},
     save(fileName, json) {
-        return new Promise((resolve, reject) => {
-            const currentPath = `${__dirname}/${fileName}`;
-            console.log(`[INFO] Writing file in ${currentPath}`);
-
-            fileSystem.writeFile(`${currentPath}`, json ,(error) => {
-				if(error) {
-					reject(error);
-				} else {
-					resolve();
-				}
-			});
-        });
+        console.log(`[INFO] Saving data in ${__dirname}/${fileName} file`);
+        fileSystem.writeFileSync(`${__dirname}/${fileName}`, JSON.stringify(json));
     }
-
 };
+
+export default JsonFileManager;
