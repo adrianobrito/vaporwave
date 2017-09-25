@@ -1,23 +1,35 @@
-import MemoryDatabase from './database.js';
-import DynamicIdGenerator from './dynamic-id-generator.js';
+import MemoryDatabase from './memory-database';
+import DynamicIdGenerator from './dynamic-id-generator';
+import JsonFileManager from './json-file-manager';
 
-export default class PersistentDatabase extends Database {
+const persistentFileName = "database.json";
+
+export default class PersistentDatabase extends MemoryDatabase {
 
 	constructor(initialData = {}) {
-		super();
-		this.memoryDatabaseObject = initialData;
+		super(initialData);
 	}
 
-	get(requestObject) {}
+	post(requestObject) {
+		this._executeAndUpdate(super.post.bind(this, requestObject));
+	}
 
-	post(requestObject) {}
+	put(requestObject) {
+		this._executeAndUpdate(super.put.bind(this, requestObject));
+	}
 
-	put(requestObject) { }
+	delete(requestObject) {
+		this._executeAndUpdate(super.delete.bind(this, requestObject));
+	}
 
-	delete(requestObject) { }
+	get fileContent() {
+		return JsonFileManager.load(persistentFileName);
+	}
 
-    function updateState() {
-        
-    }
+	// _ means to be a private method
+	_executeAndUpdate(callback) {
+		callback();
+		JsonFileManager.save(persistentFileName, this.schema);
+	}
 
 }

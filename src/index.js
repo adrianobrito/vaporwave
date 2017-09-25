@@ -1,4 +1,4 @@
-import Server from './server.js';
+import Server from './server';
 import minimist from 'minimist';
 
 (() => {

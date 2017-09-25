@@ -1,7 +1,7 @@
 import http           from 'http';
-import requestParser  from './request/request-parser.js';
-import MemoryDatabase from './database/memory-database.js';
-import asciiArt       from './ascii/ascii-art.js';
+import requestParser  from './request/request-parser';
+import MemoryDatabase from './database/memory-database';
+import asciiArt       from './ascii/ascii-art';
 
 const Server = (() => {
 

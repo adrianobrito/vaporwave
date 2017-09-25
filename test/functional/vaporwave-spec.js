@@ -2,8 +2,8 @@ import chai, {expect} from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import Server from '../../src/server';
-import MemoryDatabase from '../../src/database/memory-database.js';
-import DynamicIdGenerator from '../../src/database/dynamic-id-generator.js';
+import MemoryDatabase from '../../src/database/memory-database';
+import DynamicIdGenerator from '../../src/database/dynamic-id-generator';
 
 describe('Vaporwave Server', () => {
 

@@ -1,5 +1,5 @@
-import Database from './database.js';
-import DynamicIdGenerator from './dynamic-id-generator.js';
+import Database from './database';
+import DynamicIdGenerator from './dynamic-id-generator';
 
 export default class MemoryDatabase extends Database {
 
