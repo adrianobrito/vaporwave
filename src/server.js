@@ -66,8 +66,10 @@ const Server = (() => {
 	}
 
 	function clearCache() {
+		console.log("[INFO] Clearing persistent cache...");
 		database = new PersistentDatabase();
 		database.clear();
+		console.log("[INFO] Persistent cache cleared");
 	}
 
 })();
