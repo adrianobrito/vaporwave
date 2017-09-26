@@ -10,7 +10,8 @@ const Server = (() => {
 
 	return {
 		start       : start,
-		setDatabase : setDatabase
+		setDatabase : setDatabase,
+		clearCache  : clearCache
 	}
 
 	function setDatabase(database) {
@@ -62,6 +63,13 @@ const Server = (() => {
 		console.log(requestData);
 
 		return database[method.toLowerCase()](requestData);
+	}
+
+	function clearCache() {
+		console.log("[INFO] Clearing persistent cache...");
+		database = new PersistentDatabase();
+		database.clear();
+		console.log("[INFO] Persistent cache cleared");
 	}
 
 })();

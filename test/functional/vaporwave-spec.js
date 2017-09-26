@@ -242,8 +242,8 @@ describe('Vaporwave Server', () => {
 		});
 	});
 
-	describe("when it starts in persistent mode", () => {
-		const jsonObject 		 = {"name" : "Adriano"};
+	describe("persistent mode", () => {
+		const jsonObject         = {"name" : "Adriano"};
 		const persistentDatabase = new PersistentDatabase();
 		const customPort         = 9991;
 		const customServerUrl    = `http://localhost:${customPort}`;
@@ -253,10 +253,11 @@ describe('Vaporwave Server', () => {
 			Server.setDatabase(persistentDatabase);
 		});
 
-		after(() => persistentDatabase.clear());
+		after(() => Server.clearCache());
 
-		it("should persist the server state", (done) => {
-			chai.request(customServerUrl)
+		describe("when it's send data to server", () => {
+			it("should persist the server state", (done) => {
+				chai.request(customServerUrl)
 				.post(path)
 				.send(jsonObject)
 				.then((res) => {
@@ -265,7 +266,7 @@ describe('Vaporwave Server', () => {
 					expect([res.body]).to.deep.equals(persistentDatabase.fileContent[path]);
 					done();
 				});
+			});
 		});
 	});
-
 });
