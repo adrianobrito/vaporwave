@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import MemoryDatabase from '../../src/database/memory-database';
-import FileLoader from '../tool/file-loader';
 
 describe('MemoryDatabase', () => {
 	const collectionName        = "collection";
@@ -15,9 +14,9 @@ describe('MemoryDatabase', () => {
 
 		describe("when an id is not specified in request", () => {
 			const request = {
-				"endpoint": { 
+				"endpoint": {
 					"entity": collectionName
-				} 
+				}
 			};
 			const result  = memoryDatabase.get(request);
 
@@ -29,7 +28,7 @@ describe('MemoryDatabase', () => {
 
 		describe("when an id is specified in request", () => {
 			const request = {
-				"endpoint": { 
+				"endpoint": {
 					"entity": collectionName,
 					"id" : firstItemCollection.id
 				}
@@ -91,7 +90,7 @@ describe('MemoryDatabase', () => {
 	describe('#put()', () => {
 		demoObject.name = "new updated name";
 		const request = {
-			"endpoint": { 
+			"endpoint": {
 				"entity": collectionName,
 				"id"    : demoObject.id
 			},
@@ -105,11 +104,11 @@ describe('MemoryDatabase', () => {
 				expect(currentObject).to.exist;
 				expect(currentObject).to.be.equals(request.body);
 			});
-			
+
 			it('should update the specific object in database', () => {
 				const responseObject = memoryDatabase.get(request);
 				expect(responseObject).to.be.equals(currentObject);
-			});			
+			});
 		});
 	});
 
@@ -118,7 +117,7 @@ describe('MemoryDatabase', () => {
 			"name" : "deleted object"
 		};
 		const postRequest = {
-			"endpoint": { 
+			"endpoint": {
 				"entity": collectionName
 			},
 			"body" : demoDeletedObject
@@ -127,13 +126,13 @@ describe('MemoryDatabase', () => {
 
 		describe("when an id is specified in endpoint", () => {
 			const deleteRequest = {
-				"endpoint": { 
+				"endpoint": {
 					"entity": collectionName,
 					"id"    : demoDeletedObject.id
 				}
 			};
 			const currentObject = memoryDatabase.delete(deleteRequest);
-			
+
 			it('should return the removed object', () => {
 				expect(currentObject).to.exist;
 			});
@@ -141,7 +140,7 @@ describe('MemoryDatabase', () => {
 			it('should remove the object from the endpoint', () => {
 				const responseObject = memoryDatabase.get(deleteRequest);
 				expect(responseObject).to.be.undefined;
-			});			
+			});
 		});
 	});
 

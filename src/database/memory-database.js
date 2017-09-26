@@ -1,11 +1,11 @@
-import Database from './database.js';
-import DynamicIdGenerator from './dynamic-id-generator.js';
+import Database from './database';
+import DynamicIdGenerator from './dynamic-id-generator';
 
 export default class MemoryDatabase extends Database {
 
 	constructor(initialData = {}) {
 		super();
-		this.memoryDatabaseObject = initialData; 
+		this.memoryDatabaseObject = initialData;
 	}
 
 	get(requestObject) {
@@ -54,6 +54,10 @@ export default class MemoryDatabase extends Database {
 
 		targetCollection.splice(targetIndex, 1);
 		return deletedObject;
+	}
+
+	get schema() {
+		return this.memoryDatabaseObject;
 	}
 
 	byId(id) {

@@ -2,8 +2,9 @@ import chai, {expect} from 'chai';
 import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import Server from '../../src/server';
-import MemoryDatabase from '../../src/database/memory-database.js';
-import DynamicIdGenerator from '../../src/database/dynamic-id-generator.js';
+import MemoryDatabase from '../../src/database/memory-database';
+import PersistentDatabase from '../../src/database/persistent-database';
+import DynamicIdGenerator from '../../src/database/dynamic-id-generator';
 
 describe('Vaporwave Server', () => {
 
@@ -33,8 +34,8 @@ describe('Vaporwave Server', () => {
 	});
 
 	describe("when it starts with a custom port", () => {
-		const customPort           = 9999;
-		const customServerUrl      = `http://localhost:${customPort}/`;
+		const customPort      = 9999;
+		const customServerUrl = `http://localhost:${customPort}/`;
 
 		it("should be acessible throught the specified custom port", () => {
 			Server.start(customPort);
@@ -238,6 +239,32 @@ describe('Vaporwave Server', () => {
 						});
 					});
 			});
+		});
+	});
+
+	describe("when it starts in persistent mode", () => {
+		const jsonObject 		 = {"name" : "Adriano"};
+		const persistentDatabase = new PersistentDatabase();
+		const customPort         = 9991;
+		const customServerUrl    = `http://localhost:${customPort}`;
+
+		before(() => {
+			Server.start(customPort, true);
+			Server.setDatabase(persistentDatabase);
+		});
+
+		after(() => persistentDatabase.clear());
+
+		it("should persist the server state", (done) => {
+			chai.request(customServerUrl)
+				.post(path)
+				.send(jsonObject)
+				.then((res) => {
+					expect(res).to.have.status(200);
+					expect(res.body.id).to.exist;
+					expect([res.body]).to.deep.equals(persistentDatabase.fileContent[path]);
+					done();
+				});
 		});
 	});
 

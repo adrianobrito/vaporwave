@@ -10,8 +10,8 @@
     "build": "babel src/ -d dist/",
     "serve": "babel -w src/ -d dist/ | nodemon --watch dist",
     "test": "mocha --recursive --compilers js:babel-core/register test/",
-    "coverage" : "nyc mocha --recursive --compilers js:babel-core/register test/",
-    "execute" : "babel src/ -d dist/ | node ./dist/index.js"
+    "coverage": "nyc mocha --recursive --compilers js:babel-core/register test/",
+    "execute": "babel src/ -d dist/ | node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "figlet": "^1.2.0",
-    "minimist" : "^1.2.0"
+    "minimist": "^1.2.0"
   },
   "author": "Adriano Brito <adrianosdebrito@gmail.com>",
   "license": "ISC",
@@ -44,6 +44,7 @@
     "chai-http": "^3.0.0",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
+    "nyc": "^11.2.1",
     "sinon": "^3.2.1"
   }
 }
