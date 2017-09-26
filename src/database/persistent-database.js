@@ -6,20 +6,25 @@ const persistentFileName = "database.json";
 
 export default class PersistentDatabase extends MemoryDatabase {
 
-	constructor(initialData = {}) {
-		super(initialData);
+	constructor(initialData) {
+		if(initialData) {
+			super(initialData);
+			JsonFileManager.save(persistentFileName, initialData);
+		} else {
+			super(JsonFileManager.load(persistentFileName));
+		}
 	}
 
 	post(requestObject) {
-		this._executeAndUpdate(super.post.bind(this, requestObject));
+		return this._executeAndUpdate(() => super.post(requestObject));
 	}
 
 	put(requestObject) {
-		this._executeAndUpdate(super.put.bind(this, requestObject));
+		return this._executeAndUpdate(() => super.put(requestObject));
 	}
 
 	delete(requestObject) {
-		this._executeAndUpdate(super.delete.bind(this, requestObject));
+		return this._executeAndUpdate(() => super.delete(requestObject));
 	}
 
 	clear() {
@@ -32,8 +37,9 @@ export default class PersistentDatabase extends MemoryDatabase {
 
 	// _ means to be a private method
 	_executeAndUpdate(callback) {
-		callback();
+		const result = callback();
 		JsonFileManager.save(persistentFileName, this.schema);
+		return result;
 	}
 
 }

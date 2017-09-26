@@ -1,11 +1,12 @@
-import http           from 'http';
-import requestParser  from './request/request-parser';
-import MemoryDatabase from './database/memory-database';
-import asciiArt       from './ascii/ascii-art';
+import http               from 'http';
+import requestParser      from './request/request-parser';
+import MemoryDatabase     from './database/memory-database';
+import PersistentDatabase from './database/persistent-database';
+import asciiArt           from './ascii/ascii-art';
 
 const Server = (() => {
 
-	let memoryDatabase = new MemoryDatabase();
+	let database;
 
 	return {
 		start       : start,
@@ -13,11 +14,18 @@ const Server = (() => {
 	}
 
 	function setDatabase(database) {
-		memoryDatabase = database;
+		database = database;
 	}
 
-	function start(port = 8000) {
+	function start(port = 8000, persistent = false) {
 		asciiArt.render();
+
+		if(persistent) {
+			console.log("[INFO] Vaporwave initialized in persistent mode");
+			database = new PersistentDatabase();
+		} else {
+			database = new MemoryDatabase();
+		}
 
 		const httpServer = http.createServer(handleRequest);
 		httpServer.listen(port);
@@ -50,9 +58,10 @@ const Server = (() => {
 		var method      = request.method;
 
 		console.log("[INFO] Extracting request data...");
+		console.log(database);
 		console.log(requestData);
 
-		return memoryDatabase[method.toLowerCase()](requestData);
+		return database[method.toLowerCase()](requestData);
 	}
 
 })();
