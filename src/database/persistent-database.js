@@ -22,6 +22,10 @@ export default class PersistentDatabase extends MemoryDatabase {
 		this._executeAndUpdate(super.delete.bind(this, requestObject));
 	}
 
+	clear() {
+		JsonFileManager.save(persistentFileName, {});
+	}
+
 	get fileContent() {
 		return JsonFileManager.load(persistentFileName);
 	}

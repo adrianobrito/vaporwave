@@ -5,12 +5,6 @@ describe('PersistentDatabase', () => {
     const collectionName     = "collection";
     const persistentDatabase = new PersistentDatabase();
 
-    describe('#get()', () => {
-        describe("when this method is executed", () => {
-            it("should get the state from a specific file in fileSystem");
-        });
-    });
-
     describe('#post()', () => {
         const requestJson = { "username": "test" };
         const request     = {
@@ -22,6 +16,8 @@ describe('PersistentDatabase', () => {
 
         describe("when this method is executed", () => {
             persistentDatabase.post(request);
+
+            after(() => persistentDatabase.clear());
 
             it("should update a specific file in fileSystem", () => {
                 const fileContent  = persistentDatabase.fileContent;
@@ -43,4 +39,6 @@ describe('PersistentDatabase', () => {
             it("should update a specific file in fileSystem");
         });
     });
+
+    describe("#clear");
 });
