@@ -1,13 +1,13 @@
 import fileSystem from 'fs';
 
 const JsonFileManager = {
-    load(fileName) {
-        console.log(`[INFO] Loading data from ${__dirname}/${fileName} file`);
-        return JSON.parse(fileSystem.readFileSync(`${__dirname}/${fileName}`));
+    load(path) {
+        console.log(`[INFO] Loading data from ${path} file`);
+        return JSON.parse(fileSystem.readFileSync(`${path}`));
 	},
-    save(fileName, json) {
-        console.log(`[INFO] Saving data in ${__dirname}/${fileName} file`);
-        fileSystem.writeFileSync(`${__dirname}/${fileName}`, JSON.stringify(json));
+    save(path, json) {
+        console.log(`[INFO] Saving data in ${path} file`);
+        fileSystem.writeFileSync(`${path}`, JSON.stringify(json));
     }
 };
 
