@@ -5,33 +5,49 @@ import PersistentDatabase from './database/persistent-database';
 import asciiArt           from './ascii/ascii-art';
 
 const Server = (() => {
-
+	const defaultConfig = {port: 8000, mode: 'default'};
 	let database;
+	let httpServer;
 
 	return {
-		start       : start,
-		setDatabase : setDatabase,
-		clearCache  : clearCache
+		start,
+		setDatabase,
+		stop,
+		clearCache
 	}
 
-	function setDatabase(database) {
-		database = database;
+	function setDatabase(newDatabase) {
+		database = newDatabase;
 	}
 
-	function start(port = 8000, persistent = false) {
+	function start(config) {
+		config = {...defaultConfig, ...config};
 		asciiArt.render();
 
-		if(persistent) {
+		const isPersistent = config.mode === 'persistent';
+		const jsonFixture  = config.fixture || undefined;
+		startupDatabase(isPersistent, jsonFixture);
+		startupServer(config.port);
+
+		console.log(`Vaporwave is running on port ${config.port}`);
+	}
+
+	function stop() {
+		httpServer.close();
+	}
+
+	function startupDatabase(isPersistent, jsonFixture) {
+		if(isPersistent) {
 			console.log("[INFO] Vaporwave initialized in persistent mode");
-			database = new PersistentDatabase();
+			database = new PersistentDatabase(jsonFixture);
 		} else {
-			database = new MemoryDatabase();
+			database = new MemoryDatabase(jsonFixture);
 		}
+	}
 
-		const httpServer = http.createServer(handleRequest);
+	function startupServer(port) {
+		httpServer = http.createServer(handleRequest);
 		httpServer.listen(port);
-
-		console.log(`Vaporwave is running on port ${port}`);
 	}
 
 	function handleRequest(request, response) {
@@ -59,7 +75,6 @@ const Server = (() => {
 		var method      = request.method;
 
 		console.log("[INFO] Extracting request data...");
-		console.log(database);
 		console.log(requestData);
 
 		return database[method.toLowerCase()](requestData);

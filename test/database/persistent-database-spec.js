@@ -58,6 +58,16 @@ describe('PersistentDatabase', () => {
         });
     });
 
+    describe("with any fixture data", () => {
+        const previousData                     = persistentDatabase.fileContent;
+        const persistentDatabaseWithAnyFixture = new PersistentDatabase();
+
+        it("have fixture data equals previous schema and database file content", () => {
+            expect(previousData).to.deep.equals(persistentDatabaseWithAnyFixture.schema);
+            expect(previousData).to.deep.equals(persistentDatabaseWithAnyFixture.fileContent);
+        });
+    })
+
     function expectSchemaToBeEqualsPersistentFile() {
         const fileContent  = persistentDatabase.fileContent;
         const memorySchema = persistentDatabase.schema;

@@ -38,7 +38,7 @@ describe('Vaporwave Server', () => {
 		const customServerUrl = `http://localhost:${customPort}/`;
 
 		it("should be acessible throught the specified custom port", () => {
-			Server.start(customPort);
+			Server.start({port: customPort});
 			chai.request(customServerUrl)
 				.get(collectionName)
 				.end((err, res) => {
@@ -206,18 +206,20 @@ describe('Vaporwave Server', () => {
 		const mockedObject   = { name: "zimba", id: mockedId };
 		const pathWithId     = `${path}/${mockedId}`;
 		const requestObject  = Object.assign({}, mockedObject);
-
-		before(() => {
-			const memoryDatabase = new MemoryDatabase([mockedObject]);
-			Server.setDatabase(memoryDatabase);
-		});
+		const customSchema   = {};
 
 		after(() => {
 			Server.setDatabase(new MemoryDatabase());
 		});
 
 		describe("when a JSON is sent in request body with id specified in request URL", () => {
-			it("should return a JSON with a non-null id property", () => {
+			before(() => {
+				customSchema[`/${collectionName}`] = [mockedObject];
+				const memoryDatabase = new MemoryDatabase(customSchema);
+				Server.setDatabase(memoryDatabase);
+			});
+
+			it("should return a JSON with a non-null id property", (done) => {
 				chai.request(serverUrl)
 					.delete(pathWithId)
 					.then((response) => {
@@ -228,13 +230,13 @@ describe('Vaporwave Server', () => {
 					});
 			});
 
-			it("should remove the object related with specified in server", () => {
+			it("should remove the object related with specified in server", (done) => {
 				chai.request(serverUrl)
 					.delete(pathWithId)
 					.then((response) => {
 						expect(response).to.have.status(200);
 						fetchDataFromServer(mockedId).then((responseBody) => {
-							expect(response).to.not.exist;
+							expect(response.body).to.be.equals('');
 							done();
 						});
 					});
@@ -249,7 +251,7 @@ describe('Vaporwave Server', () => {
 		const customServerUrl    = `http://localhost:${customPort}`;
 
 		before(() => {
-			Server.start(customPort, true);
+			Server.start({port: customPort, mode: "persistent"});
 			Server.setDatabase(persistentDatabase);
 		});
 
@@ -269,4 +271,32 @@ describe('Vaporwave Server', () => {
 			});
 		});
 	});
+
+	describe("fixtures", () => {
+		const endpoint    = "/api/collection";
+		const fixture     = {};
+		const port        = 9992;
+		const serverUrl   = `http://localhost:${port}`;
+		fixture[endpoint] = [
+			{"name":"my name is"},
+			{"name":"idk"}
+		];
+
+		describe("when load a json fixture in default mode", () => {
+			before(() => Server.start({fixture, port}));
+
+			after(() => Server.stop());
+
+			it("is possible to access the data fetched from fixture", (done) => {
+				chai.request(serverUrl)
+					.get(endpoint)
+					.end((error, response) => {
+						expect(response).to.have.status(200);
+						expect(response.body).to.deep.equals(fixture[endpoint]);
+						done();
+					});
+			});
+		});
+	});
+
 });
