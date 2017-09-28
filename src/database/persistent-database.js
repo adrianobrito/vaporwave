@@ -2,16 +2,16 @@ import MemoryDatabase from './memory-database';
 import DynamicIdGenerator from './dynamic-id-generator';
 import JsonFileManager from './json-file-manager';
 
-const persistentFileName = "database.json";
+const persistentPathName = `${__dirname}/database.json`;
 
 export default class PersistentDatabase extends MemoryDatabase {
 
 	constructor(initialData) {
 		if(initialData) {
 			super(initialData);
-			JsonFileManager.save(persistentFileName, initialData);
+			JsonFileManager.save(persistentPathName, initialData);
 		} else {
-			super(JsonFileManager.load(persistentFileName));
+			super(JsonFileManager.load(persistentPathName));
 		}
 	}
 
@@ -28,17 +28,17 @@ export default class PersistentDatabase extends MemoryDatabase {
 	}
 
 	clear() {
-		JsonFileManager.save(persistentFileName, {});
+		JsonFileManager.save(persistentPathName, {});
 	}
 
 	get fileContent() {
-		return JsonFileManager.load(persistentFileName);
+		return JsonFileManager.load(persistentPathName);
 	}
 
 	// _ means to be a private method
 	_executeAndUpdate(callback) {
 		const result = callback();
-		JsonFileManager.save(persistentFileName, this.schema);
+		JsonFileManager.save(persistentPathName, this.schema);
 		return result;
 	}
 
