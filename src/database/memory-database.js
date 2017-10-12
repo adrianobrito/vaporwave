@@ -12,11 +12,11 @@ export default class MemoryDatabase extends Database {
 		console.log("[GET] Getting a resource in memory database");
 		let endpoint         = requestObject.endpoint;
 		let targetCollection = this.memoryDatabaseObject[endpoint.entity] || [];
-		if(!endpoint.id) {
+		if(!endpoint.select) {
 			return targetCollection;
 		}
 
-		let targetObject = targetCollection.filter(this.byId(endpoint.id));
+		let targetObject = targetCollection.filter(this.byParam(endpoint.select,endpoint[endpoint.select]));
 		return targetObject.length && targetObject[0] || undefined;
 	}
 
@@ -63,6 +63,12 @@ export default class MemoryDatabase extends Database {
 	byId(id) {
 		return function(object) {
 			return object.id === id;
+		}
+	}
+
+	byParam(param, paramValue){
+		return function(object){
+			return object[param] === paramValue;
 		}
 	}
 
