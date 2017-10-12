@@ -11,7 +11,7 @@
     "serve": "babel -w src/ -d dist/ | nodemon --watch dist",
     "test": "mocha --recursive --compilers js:babel-core/register test/",
     "coverage": "nyc mocha --recursive --compilers js:babel-core/register test/",
-    "execute": "babel src/ -d dist/ | node ./dist/index.js"
+    "execute": "babel src/ -d dist/ | node ./dist/index.js --port 8000"
   },
   "repository": {
     "type": "git",
