@@ -2,7 +2,9 @@ import http               from 'http';
 import requestParser      from './request/request-parser';
 import MemoryDatabase     from './database/memory-database';
 import PersistentDatabase from './database/persistent-database';
+import QueryExecutor      from './database/query-executor';
 import asciiArt           from './ascii/ascii-art';
+import querystring        from 'querystring';
 
 const Server = (() => {
 	const defaultConfig = {port: 8000, mode: 'default'};
@@ -58,8 +60,8 @@ const Server = (() => {
 
 		request.on('end', () => {
 			try {
-				request.body     = body;
-				var responseBody = prepareResponse(request);
+				request.body       = body;
+				const responseBody = prepareResponse(request);
 				response.writeHead(200, {"Content-Type": "application/json"});
 				response.end(JSON.stringify(responseBody));
 			} catch(e) {
@@ -71,13 +73,16 @@ const Server = (() => {
 	}
 
 	function prepareResponse(request) {
-		var requestData = requestParser.extractRequestData(request);
-		var method      = request.method;
+		const requestData = requestParser.extractRequestData(request);
+		const method      = request.method;
 
 		console.log("[INFO] Extracting request data...");
 		console.log(requestData);
 
-		return database[method.toLowerCase()](requestData);
+		const response = database[method.toLowerCase()](requestData);
+		return requestData.query ?
+			QueryExecutor.executeQueryIn(response, requestData.query) :
+			response;
 	}
 
 	function clearCache() {

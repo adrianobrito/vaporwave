@@ -1,10 +1,13 @@
+import QueryStringParser from 'querystring';
+
 const RequestParser = (() => {
     return {
         extractRequestData(request) {
             return {
                 endpoint : extractEndpoint(request),
                 method   : extractMethod(request),
-                body     : extractBody(request)
+                body     : extractBody(request),
+                query    : extractQuery(request)
             };
         }
     };
@@ -28,6 +31,11 @@ const RequestParser = (() => {
 
     function extractMethod(request) {
         return request.method;
+    }
+
+    function extractQuery(request) {
+        const queryString = request.url.split("?")[1];
+        return queryString ? QueryStringParser.parse(queryString) : undefined;
     }
 
     function isDigit(str) {
