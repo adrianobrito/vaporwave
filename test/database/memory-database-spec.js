@@ -30,7 +30,8 @@ describe('MemoryDatabase', () => {
 			const request = {
 				"endpoint": {
 					"entity": collectionName,
-					"id" : firstItemCollection.id
+					"param" : 'id',
+					"value" : firstItemCollection.id
 				}
 			};
 			const result  = memoryDatabase.get(request);
@@ -78,11 +79,12 @@ describe('MemoryDatabase', () => {
 
 			it('should able to get the added object sending the id in endpoint of request', () => {
 				const currentEndpoint = collectionRequest.endpoint;
-				currentEndpoint.id = currentObject.id;
+				currentEndpoint.param = 'id';
+				currentEndpoint.value = currentObject.id;
 
 				const responseObject = memoryDatabase.get(collectionRequest);
 				expect(responseObject).to.exist;
-				expect(responseObject.id).to.be.equals(currentEndpoint.id);
+				expect(responseObject.id).to.be.equals(currentEndpoint.value);
 			});
 		});
 	});
@@ -92,7 +94,8 @@ describe('MemoryDatabase', () => {
 		const request = {
 			"endpoint": {
 				"entity": collectionName,
-				"id"    : demoObject.id
+				"param" : 'id',
+				"value" : demoObject.id
 			},
 			"body"  : demoObject
 		};
@@ -128,7 +131,8 @@ describe('MemoryDatabase', () => {
 			const deleteRequest = {
 				"endpoint": {
 					"entity": collectionName,
-					"id"    : demoDeletedObject.id
+					"param" : 'id',
+					"value"    : demoDeletedObject.id
 				}
 			};
 			const currentObject = memoryDatabase.delete(deleteRequest);

@@ -12,12 +12,15 @@ export default class MemoryDatabase extends Database {
 		console.log("[GET] Getting a resource in memory database");
 		let endpoint         = requestObject.endpoint;
 		let targetCollection = this.memoryDatabaseObject[endpoint.entity] || [];
-		if(!endpoint.id) {
+		if(!endpoint.param) {
 			return targetCollection;
 		}
 
-		let targetObject = targetCollection.filter(this.byId(endpoint.id));
-		return targetObject.length && targetObject[0] || undefined;
+		let targetObject = targetCollection.filter(this.byParam(endpoint.param,endpoint.value));
+		if ( endpoint.multi )
+			return targetObject.length && targetObject || undefined;
+		else
+			return targetObject.length && targetObject[0] || undefined;
 	}
 
 	post(requestObject) {
@@ -38,9 +41,10 @@ export default class MemoryDatabase extends Database {
 		const body             = requestObject.body;
 		const endpoint         = requestObject.endpoint;
 		const targetCollection = this.memoryDatabaseObject[endpoint.entity] || [];
-		const targetIndex      = targetCollection.findIndex(this.byId(endpoint.id));
+		const targetIndex      = targetCollection.findIndex(this.byParam(endpoint.param,endpoint.value));
 
-		body.id 					  = endpoint.id;
+		body[endpoint.param] 		  = endpoint['value'];
+
 		targetCollection[targetIndex] = body;
 		return body;
 	}
@@ -49,7 +53,7 @@ export default class MemoryDatabase extends Database {
 		console.log("[DELETE] Removing a resource in memory database");
 		var endpoint         = requestObject.endpoint;
 		var targetCollection = this.memoryDatabaseObject[endpoint.entity] || [];
-		var targetIndex      = targetCollection.findIndex(this.byId(endpoint.id));
+		var targetIndex      = targetCollection.findIndex(this.byParam(endpoint.param,endpoint.value));
 		var deletedObject    = targetCollection[targetIndex];
 
 		targetCollection.splice(targetIndex, 1);
@@ -60,9 +64,9 @@ export default class MemoryDatabase extends Database {
 		return this.memoryDatabaseObject;
 	}
 
-	byId(id) {
-		return function(object) {
-			return object.id === id;
+	byParam(param, value){
+		return function(object){
+			return object[param] == value;
 		}
 	}
 
