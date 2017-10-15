@@ -14,7 +14,7 @@ describe('Vaporwave Server', () => {
 	const path           = `/${collectionName}`;
 
 	function fetchDataFromServer(id) {
-		const currentPath = id ? `${path}/${id}` : path;
+		const currentPath = id ? `${path}?id=${id}` : path;
 		return new Promise((resolve, reject) => {
 			chai.request(serverUrl)
 				.get(currentPath)
@@ -57,7 +57,7 @@ describe('Vaporwave Server', () => {
 					.end((err, res) => {
 						expect(res).to.have.status(200);
 						expect(res.body).to.be.a('array');
-						done();
+						done();	
 					});
 			});
 		});
@@ -126,7 +126,7 @@ describe('Vaporwave Server', () => {
 						fetchDataFromServer(response.body.id)
 							.then((responseBody) => {
 								expect(responseBody).to.exist;
-								expect(response.body.id).to.be.equals(responseBody.id);
+								expect(response.body.id).to.be.equals(responseBody[0].id);
 								done();
 							});
 					});
@@ -161,7 +161,7 @@ describe('Vaporwave Server', () => {
 	describe("HTTP PUT", () => {
 		const mockedId       = DynamicIdGenerator.generateId();
 		const mockedObject   = { name: "zimba", id: mockedId };
-		const pathWithId     = `${path}/${mockedId}`;
+		const pathWithId     = `${path}?id=${mockedId}`;
 		const requestObject  = Object.assign({}, mockedObject);
 
 		before(() => {
@@ -204,7 +204,7 @@ describe('Vaporwave Server', () => {
 	describe("HTTP DELETE", () => {
 		const mockedId       = DynamicIdGenerator.generateId();
 		const mockedObject   = { name: "zimba", id: mockedId };
-		const pathWithId     = `${path}/${mockedId}`;
+		const pathWithId     = `${path}?id=${mockedId}`;
 		const requestObject  = Object.assign({}, mockedObject);
 		const customSchema   = {};
 

@@ -53,10 +53,16 @@ $ curl -X GET http://localhost:8000/api/users
 
 It's easy to check that the collection related with **api/users** is not empty anymore.
 
-The returned object from **HTTP POST** request has an `id` property. This `id` allows you to create a request to that specific object using **api/users/{id}** endpoint like it's shown below:
+The returned object from **HTTP POST** request has an `id` property. This `id` allows you to create a request to that specific object using **api/users?id={id}** endpoint like it's shown below:
 
 ```sh
-$ curl -X GET "http://localhost:8000/api/users/2323"
+$ curl -X GET "http://localhost:8000/api/users?id=2323"
+{"name":"Adriano Brito","username":"adrianobrito","password":"qwe123","id":2323}
+```
+The query params can be used to query the objects stored in the database by any `property` like `name,username,id` like shown below:
+
+```sh
+$ curl -X GET "http://localhost:8000/api/users?username=adrianobrito"
 {"name":"Adriano Brito","username":"adrianobrito","password":"qwe123","id":2323}
 ```
 
@@ -66,25 +72,25 @@ In order to update this unique object, it's necessary dispacth a **HTTP PUT** ag
 $ curl -X PUT
 	-H "Content-Type: application/json"
 	-d '{"name":"Adriano Brito Bispo","username":"adrianobritobispo","password":"qwe123","id":2323}'
-	"http://localhost:8000/api/users/2323"
+	"http://localhost:8000/api/users?id=2323"
 {"name":"Adriano Brito Bispo","username":"adrianobritobispo","password":"qwe123","id":2323}
 
-$ curl -X GET "http://localhost:8000/api/users/2323"
+$ curl -X GET "http://localhost:8000/api/users?id=2323"
 {"name":"Adriano Brito Bispo","username":"adrianobritobispo","password":"qwe123","id":2323}
 ```
 
-It's easy to see that the object related with **api/users/2323** endpoint was updated with the object sent in **HTTP PUT** request body.
+It's easy to see that the object related with **api/users?id=2323** endpoint was updated with the object sent in **HTTP PUT** request body.
 
 If you need to remove a specific object from server, you can perform a **HTTP DELETE** with an ID in request path, like is shown below:
 
 ```sh
-$ curl -X DELETE "http://localhost:8000/api/users/2323"
+$ curl -X DELETE "http://localhost:8000/api/users?id=2323"
 {"name":"Adriano Brito Bispo","username":"adrianobritobispo","password":"qwe123","id":2323}
 
-$ curl -X GET "http://localhost:8000/api/users/2323"
+$ curl -X GET "http://localhost:8000/api/users?id=2323"
 
 ```
-After execute an **HTTP DELETE** request in **api/users/2322** endpoint, the server will remove that specific object from your internal database. It's shown on subsequent **HTTP GET** request.
+After execute an **HTTP DELETE** request in **api/users?id=2322** endpoint, the server will remove that specific object from your internal database. It's shown on subsequent **HTTP GET** request.
 
 # Contribute
 

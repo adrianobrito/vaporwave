@@ -20,11 +20,12 @@ describe('RequestParser', () => {
 		});
 
 		describe("when a request has id in path", () => {
-			request.url = "/collection/15";
+			request.url = "/collection?id=15";
 			const requestData = RequestParser.extractRequestData(request);
 
-			it("parses to an object with an endpoint cointaining id property", () => {
-				expect(requestData.endpoint.id).to.exist;
+			it("parses to an object with an endpoint cointaining param & value property", () => {
+				expect(requestData.endpoint.param).to.exist;
+				expect(requestData.endpoint.value).to.exist;
 			});
 		});
 
