@@ -14,7 +14,7 @@ const RequestParser = (() => {
 
     function extractEndpoint(request) {
         console.log("[INFO] Parsing incoming request");
-        var url         = request.url;
+        var url         = request.url.split("?")[0];
         var urlRegex    = /([\/A-Za-z+]+)(\/[\d+]*)/;
         var groups      = urlRegex.exec(url);
         var lastUrlPath = url.replace(urlRegex, '$2').replace('/','');
